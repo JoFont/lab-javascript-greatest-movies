@@ -1,5 +1,9 @@
 /* eslint no-restricted-globals: 'off' */
 
+
+
+
+
 // Iteration 1: All rates average - Get the average of all rates with 2 decimals
 const calculateAverageMovieRate = arr => {
     const sum = arr.map(a => a.rate).reduce((avg, val) => {
@@ -60,14 +64,37 @@ const turnHoursToMinutes = arr => {
 
 
 // BONUS Iteration: Best yearly rate average - Best yearly rate average
-// const bestYearAvg = arr => {
-//     const test = orderByYear(arr).reduce((acc, obj) => {
-//         let temp;
-//         if(typeof acc === "undefined") acc = {year: obj.year, rate: obj.rate};
-//         if(obj.year === acc.year && obj.rate > acc.rate) {
-//             acc.rate = obj.rate;
-//         } 
-//     });
+const bestYearAvg = arr => {
+    if(!arr.length) return null;
 
-//     console.log(test);
-// }
+    let subsetByYear = [];
+    orderByYear(arr).map((obj, i) => {
+        let currYear;
+        let tempArr = [];
+        if(i === 0) currYear = obj.year;
+        if(currYear === obj.year) {
+            tempArr.push({year: obj.year, rate: obj.rate});
+        } else {
+            subsetByYear.push(tempArr); //This is pushing empty arrays
+            currYear === obj.year;
+            tempArr.push({year: obj.year, rate: obj.rate});
+        }
+    });
+
+    console.log("SUB", subsetByYear)
+    let avg;
+    let bestYear;
+    for (let set of subsetByYear) {
+        let setAvg = calculateAverageMovieRate(set);
+        if(typeof avg === "undefined") avg = setAvg;
+        if(setAvg > avg){
+            avg = setAvg;
+            bestYear = set[0].year;
+        }
+    }
+
+    console.log(`Best year: ${bestYear}`);
+    return `The best year was ${bestYear} with an average rate of ${avg}`;
+}
+
+// bestYearAvg(MOVIES);
