@@ -345,7 +345,6 @@ describe('Turn duration of the movies - turnHoursToMinutes', () => {
 
   it('should return the duration of the movie as the correct number to a short movie - 31 minutes', () => {
     const movieTry = [{ duration: '0h 31min' }];
-
     expect(turnHoursToMinutes(movieTry)[0].duration).toBe(31);
   });
 
